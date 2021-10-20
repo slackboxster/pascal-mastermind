@@ -10,13 +10,13 @@ arraytypeii = array [1..10] of byte;
 
 var
 choice : byte;
-v : arraytypei;
+v : arraytypei; //secret code is stored here.
 a : arraytypeii;
 b : arraytypeii;
 c : arraytypeii;
-d : arraytypeii;
-x : byte;
-y : byte;
+d : arraytypeii; //each a-d array corresponds to a column in the code, and contains 10 elements for 10 available guess rows.
+x : byte; //indicates which row of guessing we are currently on.
+y : byte; //compiler says var not used.
 
 procedure guess; forward;
 
@@ -29,7 +29,7 @@ begin
 gotoxy(13,10);
 
 case v[1] of
-1 : textcolor(4);
+1 : textcolor(4); //TODO - make this byte to textcolor conversion into a function.
 2 : textcolor(1);
 3 : textcolor(2);
 4 : textcolor(14);
@@ -96,6 +96,8 @@ if x=10 then lose
 else guess;
 end;
 
+//this could be made much simpler by maintaining some sort of object or struct to track the state of evaluation for each token, and then process the evaluation state after computing it.
+//basically make it a pure function, write to the screen after evaluation is complete.
 procedure evaluate;
 begin
 if a[x]=v[1] then
@@ -172,7 +174,7 @@ if (d[x]=v[3]) and (c[x]<>v[3]) and
 else write('');
 reproc;
 end;
-
+//TODO - unit tests. - I think we'll find some strange edge cases.n
 
 procedure inval;
 begin
@@ -263,7 +265,7 @@ begin
 gotoxy(1, 2*x+14);
 textcolor(7);
 writeln('Do you wish to play again? 1.y.2.n.');
-readln(choice);
+readln(choice); //TODO - this seems to result in EInOutError: Invalid Input every time.
 if choice=1 then intro
 else exit;
 end;

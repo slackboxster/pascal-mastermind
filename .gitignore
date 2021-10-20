@@ -1,0 +1,5 @@
+# todo - instead of listing out binaries here, move them to an output directory.
+bin/*
+.build/*
+*.o
+*.ppu
